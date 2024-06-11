@@ -3,9 +3,9 @@ window.paypal
     style: {
       shape: "rect",
       layout: "vertical",
-      color: "gold",
+      color: "black",
       label: "paypal",
-    } ,
+    },
     async createOrder() {
       try {
         const response = await fetch("/api/orders", {
@@ -40,7 +40,7 @@ window.paypal
         console.error(error);
         // resultMessage(`Could not initiate PayPal Checkout...<br><br>${error}`);
       }
-    } ,
+    },
     async onApprove(data, actions) {
       try {
         const response = await fetch(`/api/orders/${data.orderID}/capture`, {
@@ -90,6 +90,6 @@ window.paypal
           `Sorry, your transaction could not be processed...<br><br>${error}`
         );
       }
-    } ,
+    },
   })
-  .render("#paypal-button-container"); 
+  .render("#paypal-button-container");

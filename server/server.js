@@ -1,5 +1,4 @@
 import express from "express";
-import fetch from "node-fetch";
 import "dotenv/config";
 import path from "path";
 
@@ -77,8 +76,31 @@ const createOrder = async (cart) => {
         },
       },
     ],
+    shipping: {
+      options: [
+        {
+          id: "001",
+          type: "SHIPPING",
+          label: "ground",
+          selected: true,
+          amount: {
+            currency_code: "USD",
+            value: "0",
+          },
+        },
+        {
+          id: "002",
+          type: "SHIPPING",
+          label: "Expedite",
+          selected: false,
+          amount: {
+            currency_code: "USD",
+            value: "100",
+          },
+        },
+      ],
+    },
   };
-  
 
   const response = await fetch(url, {
     headers: {
@@ -108,7 +130,7 @@ app.post("/api/orders", async (req, res) => {
     console.error("Failed to create order:", error);
     res.status(500).json({ error: "Failed to create order." });
   }
-}); 
+});
 /**
  * Capture payment for the created order to complete the transaction.
  * @see https://developer.paypal.com/docs/api/orders/v2/#orders_capture
@@ -151,4 +173,4 @@ app.get("/", (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Node server listening at http://localhost:${PORT}/`);
-}); 
+});
